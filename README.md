@@ -16,5 +16,7 @@ YMLL - Yandex Metrica Lazy Load (APEXWEB)
 Для работы скрипта требуется подключение jquery (но это не обязательно, можете переписать на чистом JS)
 
 --
+
 apexweb.ru
+
 Taras Penzin
