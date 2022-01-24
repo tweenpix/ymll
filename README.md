@@ -1,6 +1,6 @@
 # ymll
 
-YMLL - Yandex Metrica Lazy Load
+YMLL - Yandex Metrica Lazy Load (APEXWEB)
 отложенная загрузка скрипта Яндекс Метрики
 
 Яндекс Метрика начинает загружаться без задержки в случае если:
@@ -14,3 +14,7 @@ YMLL - Yandex Metrica Lazy Load
 Для сокращения времени загрузки сайта и увеличения показателей Google PageSpeed.
 
 Для работы скрипта требуется подключение jquery (но это не обязательно, можете переписать на чистом JS)
+
+--
+apexweb.ru
+Taras Penzin
