@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YMLL - Yandex Metrica Lazy Load</title>
+  </head>
+  <body>
+    <h1>YMLL - Yandex Metrica Lazy Load</h1>
+    <h2>отложенная загрузка скрипта Яндекс Метрики</h2>
+    <p>Яндекс Метрика начинает загружаться без задержки в случае если:</p>
+    <ul>
+      <li>1. Открыт адрес отличный от переменной thisSite</li>
+      <li>2. На страницу зашел Яндекс бот</li>
+    </ul>
+    <p>
+      В остальных случаях загрузка скрипта Яндекс Метрики будет происходит один
+      раз по скролу или через X количество секунд указанных в переменной
+      lazytimer
+    </p>
+    <h3>Для чего это?</h3>
+    <p>Для сокращения времени загрузки сайта и увеличения показателей Google PageSpeed.</p>
+    <p>
+      Для работы скрипта требуется подключение jquery (но это не обязательно,
+      можете переписать на чистом JS)
+    </p>
+    <h4>Сам код:</h4>
+        <div>
+            <div>//begin APEXWEB Yandex Metrica lazy load</div>
+            <br />
+            <div>jQuery(document).ready(function () {</div>
+            <div>let thisSite = "https://example.ru/"; // адрес сайта</div>
+            <div>let ymid = 07254000; // id счетчика Яндекс Метрики</div>
+            <div>let lazytimer = 3; // задержка загрузки скрипта на 3 секунды</div>
+            <br />
+            <div>console.log("YMLL: Готов к работе");</div>
+            <br />
+            <div>//функция загрузки скриптов</div>
+            <div>jQuery.cachedScript = function (url, options) {</div>
+            <div>options = $.extend(options || {}, {</div>
+            <div>dataType: "script",</div>
+            <div>cache: true,</div>
+            <div>url: url,</div>
+            <div>});</div>
+            <div>return jQuery.ajax(options);</div>
+            <div>};</div>
+            <br />
+            <div>function ym_load() {</div>
+            <div>//YMLL - Yandex Metrica Lazy Load</div>
+            <div>//</div>
+            <div>//скрипт отложенной загрузки скрипта Яндекс Метрики</div>
+            <div>//Яндекс Метрика начинает загружаться без задержки в случае если:</div>
+            <div>//1. Открыт адрес отличный от переменной thisSite</div>
+            <div>//2. На страницу зашел Яндекс бот</div>
+            <div>//В остальных случаях загрузка скрипта Яндекс Метрики будет происходит один раз по скролу или</div>
+            <div>//через X количество секунд указанных в переменной lazytimer</div>
+            <br />
+            <div>$.cachedScript("https://mc.yandex.ru/metrika/tag.js").done(function (</div>
+            <div>script,</div>
+            <div>textStatus</div>
+            <div>) {</div>
+            <div>(function (m, e, t, r, i, k, a) {</div>
+            <div>m[i] =</div>
+            <div>m[i] ||</div>
+            <div>function () {</div>
+            <div>(m[i].a = m[i].a || []).push(arguments);</div>
+            <div>};</div>
+            <div>m[i].l = 1 * new Date();</div>
+            <div>(k = e.createElement(t)),</div>
+            <div>(a = e.getElementsByTagName(t)[0]),</div>
+            <div>(k.async = 1),</div>
+            <div>(k.src = r),</div>
+            <div>a.parentNode.insertBefore(k, a);</div>
+            <div>})(</div>
+            <div>window,</div>
+            <div>document,</div>
+            <div>"script",</div>
+            <div>"https://mc.yandex.ru/metrika/tag.js",</div>
+            <div>"ym"</div>
+            <div>);</div>
+            <br />
+            <div>ym(ymid, "init", {</div>
+            <div>clickmap: true,</div>
+            <div>trackLinks: true,</div>
+            <div>accurateTrackBounce: true,</div>
+            <div>webvisor: true,</div>
+            <div>ecommerce: "dataLayer",</div>
+            <div>});</div>
+            <div>});</div>
+            <div>console.log("YMLL: Яндекс Метрика загружена");</div>
+            <div>}</div>
+            <br />
+            <div>if (</div>
+            <div>navigator.userAgent.indexOf("YandexBot") &gt; -1 ||</div>
+            <div>navigator.userAgent.indexOf("YandexMetrika") &gt; -1</div>
+            <div>) {</div>
+            <div>ym_load();</div>
+            <div>} else if (location.href == thisSite) {</div>
+            <div>$(window).one("scroll", function (event) {</div>
+            <div>console.log("YMLL: Яндекс Метрика загружается");</div>
+            <div>window.setTimeout(function () {</div>
+            <div>ym_load();</div>
+            <div>}, lazytimer * 1000);</div>
+            <div>});</div>
+            <div>} else {</div>
+            <div>console.log("YMLL: Яндекс Метрика загружается");</div>
+            <div>ym_load();</div>
+            <div>}</div>
+            <div>});</div>
+            <div>//end APEXWEB Yandex Metrica lazy load</div>
+            </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="ymll.js"></script>
+  </body>
+</html>
